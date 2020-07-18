@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+      
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="control-label"></label>
+                    <select class="form-control" id="albums">
+                        <option value="">-- Select Album --</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            let albums = document.getElementById('albums');
+            const url = "https://jsonplaceholder.typicode.com/albums";
+            fetch(url)
+                .then(
+                    function (response) {
+                        if (response.status !== 200) {
+                            alert("API NO DISPONIBLE PARA CARGAR ALBUMS");
+                            return;
+                        }
+                        response.json().then(function (data) {
+                            let album;
+                            console.log(data);
+                            for (let i = 0; i < data.length; i++) {
+                                option = document.createElement('option');
+                                option.text = data[i].title;
+                                option.value = data[i].id;
+                                console.log(option);
+                                albums.add(option);
+                            }
+
+                        })
+                    }
+                )
+        })
+    </script>
+}
